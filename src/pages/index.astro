@@ -1,16 +1,449 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import '../styles/global.css';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="ПРО СТОПИ - Професійна подологія в Києві | Лікування захворювань стоп">
+  <!-- Hero Section -->
+  <section class="gradient-hero py-20 px-4">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-prosto text-dark mb-6 text-balance">
+            Професійна подологія у вашому місті
+          </h1>
+          <p class="text-xl text-gray mb-8 max-w-xl">
+            Комплексний догляд за здоров'ям ваших ніг від досвідчених спеціалістів
+          </p>
+          <Button href="tel:+380441234567" size="lg" class="mb-8 lg:mb-0">
+            Записатися на консультацію
+          </Button>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-6 text-center lg:text-left">
+          <div class="bg-white/80 rounded-xl p-6 backdrop-blur-sm">
+            <div class="text-3xl font-prosto text-dark mb-2">15+</div>
+            <div class="text-gray">років досвіду</div>
+          </div>
+          <div class="bg-white/80 rounded-xl p-6 backdrop-blur-sm">
+            <div class="text-3xl font-prosto text-dark mb-2">10,000+</div>
+            <div class="text-gray">задоволених пацієнтів</div>
+          </div>
+          <div class="bg-white/80 rounded-xl p-6 backdrop-blur-sm">
+            <div class="text-3xl font-prosto text-dark mb-2">100%</div>
+            <div class="text-gray">сучасне обладнання</div>
+          </div>
+          <div class="bg-white/80 rounded-xl p-6 backdrop-blur-sm">
+            <div class="text-3xl font-prosto text-dark mb-2">24/7</div>
+            <div class="text-gray">індивідуальний підхід</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section-padding bg-white">
+    <div class="container-custom">
+      <SectionTitle 
+        title="Клініка ПРО СТОПИ - ваш надійний партнер у здоров'ї ніг" 
+        subtitle="Ми - команда висококваліфікованих подологів, які спеціалізуються на комплексному догляді за стопами. Наша місія - забезпечити кожному пацієнту індивідуальний підхід та ефективне лікування з використанням найсучасніших методик."
+        class="mb-12"
+      />
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M9.243 3.03a1 1 0 01.727 1.213L9.53 6h2.94l.56-2.243a1 1 0 111.94.486L14.53 6H16a1 1 0 110 2h-1.97l-1 4H15a1 1 0 110 2h-2.47l-.56 2.242a1 1 0 11-1.94-.485L10.47 14H7.53l-.56 2.242a1 1 0 11-1.94-.485L5.47 14H4a1 1 0 110-2h1.97l1-4H5a1 1 0 110-2h2.47l.56-2.243a1 1 0 011.213-.727zM9.03 8l-1 4h2.94l1-4H9.03z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-prosto text-dark mb-2">Досвідчені спеціалісти</h3>
+          <p class="text-gray">з медичною освітою</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-prosto text-dark mb-2">Комплексний підхід</h3>
+          <p class="text-gray">до діагностики та лікування</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-prosto text-dark mb-2">Сучасне обладнання</h3>
+          <p class="text-gray">європейських виробників</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 1.414L10.586 9.5H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-prosto text-dark mb-2">Стерильність</h3>
+          <p class="text-gray">та безпека процедур</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-prosto text-dark mb-2">Зручне розташування</h3>
+          <p class="text-gray">та гнучкий графік</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-prosto text-dark mb-2">Індивідуальний підхід</h3>
+          <p class="text-gray">до кожного пацієнта</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="section-padding bg-base-6/20">
+    <div class="container-custom">
+      <SectionTitle 
+        title="Наші послуги" 
+        subtitle="Професійний догляд за стопами для всієї родини. Індивідуальний підхід до кожного пацієнта."
+        class="mb-16"
+      />
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Sports Medicine -->
+        <Card href="/services/sports-medicine" class="group">
+          <div class="p-8">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-6 group-hover:bg-base-4 transition-colors">
+              <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-prosto text-dark mb-3">Спортивна подологія</h3>
+            <p class="text-gray mb-4">Спеціалізована допомога для спортсменів та активних людей. Біомеханічний аналіз, лікування спортивних травм, виготовлення індивідуальних устілок.</p>
+            <ul class="text-sm text-gray space-y-1 mb-6">
+              <li>• Діагностика біомеханіки стопи</li>
+              <li>• Лікування травм від бігу</li>
+              <li>• Профілактика спортивних ушкоджень</li>
+              <li>• Індивідуальні ортези</li>
+            </ul>
+            <div class="text-accent font-medium group-hover:text-dark transition-colors">
+              Дізнатися більше →
+            </div>
+          </div>
+        </Card>
+
+        <!-- Senior Care -->
+        <Card href="/services/senior-care" class="group">
+          <div class="p-8">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-6 group-hover:bg-base-4 transition-colors">
+              <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-prosto text-dark mb-3">Геріатрична подологія</h3>
+            <p class="text-gray mb-4">Делікатний догляд за стопами літніх людей. Лікування діабетичної стопи, профілактика падінь, консервативні методи терапії.</p>
+            <ul class="text-sm text-gray space-y-1 mb-6">
+              <li>• Догляд при діабеті</li>
+              <li>• Лікування артритних змін</li>
+              <li>• Профілактика ускладнень</li>
+              <li>• Навчання домашньому догляду</li>
+            </ul>
+            <div class="text-accent font-medium group-hover:text-dark transition-colors">
+              Дізнатися більше →
+            </div>
+          </div>
+        </Card>
+
+        <!-- Professional Care -->
+        <Card href="/services/professional-care" class="group">
+          <div class="p-8">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-6 group-hover:bg-base-4 transition-colors">
+              <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-prosto text-dark mb-3">Подологія для професіоналів</h3>
+            <p class="text-gray mb-4">Швидка та ефективна допомога для зайнятих людей. Гнучкий графік, комплексне лікування за один візит, преміальний сервіс.</p>
+            <ul class="text-sm text-gray space-y-1 mb-6">
+              <li>• Експрес-консультації</li>
+              <li>• Комплексне лікування</li>
+              <li>• Зручний час прийому</li>
+              <li>• Мінімальна втрата часу</li>
+            </ul>
+            <div class="text-accent font-medium group-hover:text-dark transition-colors">
+              Дізнатися більше →
+            </div>
+          </div>
+        </Card>
+
+        <!-- Pediatric Care -->
+        <Card href="/services/pediatric-care" class="group">
+          <div class="p-8">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-6 group-hover:bg-base-4 transition-colors">
+              <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-prosto text-dark mb-3">Педіатрична подологія</h3>
+            <p class="text-gray mb-4">Турботливий догляд за дитячими ніжками. Корекція розвитку стопи, лікування плоскостопості, профілактика деформацій.</p>
+            <ul class="text-sm text-gray space-y-1 mb-6">
+              <li>• Діагностика розвитку стопи</li>
+              <li>• Лікування плоскостопості</li>
+              <li>• Підбір правильного взуття</li>
+              <li>• Профілактичні огляди</li>
+            </ul>
+            <div class="text-accent font-medium group-hover:text-dark transition-colors">
+              Дізнатися більше →
+            </div>
+          </div>
+        </Card>
+
+        <!-- Aesthetic Podiatry -->
+        <Card href="/services/aesthetic-podiatry" class="group">
+          <div class="p-8">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-6 group-hover:bg-base-4 transition-colors">
+              <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0112.12 15.12z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-prosto text-dark mb-3">Краса та здоров'я ваших ніг</h3>
+            <p class="text-gray mb-4">Естетичні процедури для красивих та здорових стоп. Лікування без хірургічного втручання, корекція деформацій, догляд за шкірою.</p>
+            <ul class="text-sm text-gray space-y-1 mb-6">
+              <li>• Лікування кісточок та мозолів</li>
+              <li>• Естетична корекція нігтів</li>
+              <li>• Догляд за шкірою стоп</li>
+              <li>• Консультації щодо взуття</li>
+            </ul>
+            <div class="text-accent font-medium group-hover:text-dark transition-colors">
+              Дізнатися більше →
+            </div>
+          </div>
+        </Card>
+
+        <!-- Post-Surgical -->
+        <Card href="/services/post-surgical" class="group">
+          <div class="p-8">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-6 group-hover:bg-base-4 transition-colors">
+              <svg class="w-8 h-8 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-prosto text-dark mb-3">Відновлення після операцій</h3>
+            <p class="text-gray mb-4">Професійна реабілітація після хірургічних втручань. Програми відновлення, контроль загоєння, повернення до активності.</p>
+            <ul class="text-sm text-gray space-y-1 mb-6">
+              <li>• Післяопераційний догляд</li>
+              <li>• Програми реабілітації</li>
+              <li>• Фізіотерапія стопи</li>
+              <li>• Моніторинг відновлення</li>
+            </ul>
+            <div class="text-accent font-medium group-hover:text-dark transition-colors">
+              Дізнатися більше →
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <SectionTitle 
+        title="Чому пацієнти довіряють ПРО СТОПИ" 
+        subtitle=""
+        class="mb-16"
+      />
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 gap-8">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-6 h-6 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-prosto text-dark mb-2">Професійна експертиза</h3>
+              <p class="text-gray">Наші спеціалісти мають вищу медичну освіту та регулярно підвищують кваліфікацію на міжнародних конференціях</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-6 h-6 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 4a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm8 0a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1h-6a1 1 0 01-1-1V8z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-prosto text-dark mb-2">Сучасне обладнання</h3>
+              <p class="text-gray">Використовуємо найновіше діагностичне та лікувальне обладнання європейських виробників</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-6 h-6 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-prosto text-dark mb-2">Індивідуальний підхід</h3>
+              <p class="text-gray">Кожен пацієнт отримує персональний план лікування з урахуванням особливостей та потреб</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+              <svg class="w-6 h-6 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-prosto text-dark mb-2">Доведені результати</h3>
+              <p class="text-gray">Тисячі задоволених пацієнтів та позитивних відгуків підтверджують ефективність нашої роботи</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-base-6/20 rounded-2xl p-8 text-center">
+          <div class="text-6xl font-prosto text-dark mb-4">15+</div>
+          <div class="text-2xl font-prosto text-dark mb-2">років досвіду</div>
+          <div class="text-gray mb-6">у сфері професійної подології</div>
+          
+          <div class="grid grid-cols-2 gap-4 mt-8">
+            <div class="bg-white rounded-xl p-4">
+              <div class="text-2xl font-prosto text-dark">10K+</div>
+              <div class="text-gray text-sm">пацієнтів</div>
+            </div>
+            <div class="bg-white rounded-xl p-4">
+              <div class="text-2xl font-prosto text-dark">98%</div>
+              <div class="text-gray text-sm">задоволених</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section-padding bg-dark text-white">
+    <div class="container-custom">
+      <SectionTitle 
+        title="Зв'яжіться з нами" 
+        subtitle="Запишіться на консультацію прямо зараз або залиште заявку - ми зв'яжемося з вами найближчим часом"
+        class="mb-16 text-white"
+      />
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <div class="space-y-8">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-prosto text-white mb-1">Адреса</h3>
+                <p class="text-gray-300">вул. Медична, 15, Київ, 01001</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-prosto text-white mb-1">Телефони</h3>
+                <p class="text-gray-300">
+                  <a href="tel:+380441234567" class="hover:text-white transition-colors">+38 (044) 123-45-67</a><br>
+                  <a href="tel:+380671234567" class="hover:text-white transition-colors">+38 (067) 123-45-67</a>
+                </p>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-dark" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-prosto text-white mb-1">Графік роботи</h3>
+                <p class="text-gray-300">
+                  Понеділок - П'ятниця: 9:00 - 20:00<br>
+                  Субота: 10:00 - 18:00<br>
+                  Неділя: вихідний
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8">
+          <h3 class="text-2xl font-prosto text-dark mb-6">Залишити заявку</h3>
+          <form class="space-y-6" action="#" method="post">
+            <div>
+              <label for="name" class="block text-sm font-medium text-dark mb-2">Ваше ім'я *</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent text-dark"
+                placeholder="Введіть ваше ім'я"
+              >
+            </div>
+            
+            <div>
+              <label for="phone" class="block text-sm font-medium text-dark mb-2">Ваш телефон *</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent text-dark"
+                placeholder="+38 (___) ___-__-__"
+              >
+            </div>
+            
+            <div>
+              <label for="message" class="block text-sm font-medium text-dark mb-2">Ваше повідомлення</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="4" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent text-dark"
+                placeholder="Опишіть ваші потреби або запитання"
+              ></textarea>
+            </div>
+            
+            <Button type="submit" class="w-full">
+              Надіслати заявку
+            </Button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,37 @@
+---
+export interface Props {
+  title?: string;
+  href?: string;
+  class?: string;
+  hover?: boolean;
+}
+
+const { 
+  title, 
+  href, 
+  class: className = '', 
+  hover = true 
+} = Astro.props;
+
+const baseClasses = 'bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300';
+const hoverClasses = hover ? 'hover:shadow-xl hover:scale-105' : '';
+const classes = `${baseClasses} ${hoverClasses} ${className}`.trim();
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <div class={classes}>
+    <slot />
+  </div>
+)}
+
+{title && (
+  <style>
+    .card-title {
+      @apply text-xl font-prosto text-dark mb-3;
+    }
+  </style>
+)}

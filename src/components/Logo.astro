@@ -1,0 +1,30 @@
+---
+export interface Props {
+  variant?: 'light' | 'dark';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { 
+  variant = 'dark', 
+  size = 'md', 
+  class: className = '' 
+} = Astro.props;
+
+const sizeClasses = {
+  sm: 'text-xl',
+  md: 'text-2xl',
+  lg: 'text-3xl'
+};
+
+const colorClasses = {
+  light: 'text-white',
+  dark: 'text-dark'
+};
+
+const classes = `font-prosto ${sizeClasses[size]} ${colorClasses[variant]} ${className}`.trim();
+---
+
+<div class={classes}>
+  ПРО СТОПИ
+</div>

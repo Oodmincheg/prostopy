@@ -1,0 +1,57 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import '../../styles/global.css';
+---
+
+<Layout title="Подологія для зайнятих людей | ПРО СТОПИ" description="Швидка та ефективна подологічна допомога для професіоналів в клініці ПРО СТОПИ. Гнучкий графік, експрес-консультації.">
+  <!-- Hero Section -->
+  <section class="gradient-hero py-20 px-4">
+    <div class="container-custom text-center">
+      <h1 class="text-4xl md:text-5xl font-prosto text-dark mb-6">
+        Подологія для зайнятих людей
+      </h1>
+      <p class="text-xl text-gray mb-8 max-w-3xl mx-auto">
+        Цінуємо ваш час! Пропонуємо ефективне лікування з мінімальними візитами, гнучкий графік та преміальний сервіс для професіоналів.
+      </p>
+    </div>
+  </section>
+
+  <!-- Coming Soon Section -->
+  <section class="section-padding bg-white">
+    <div class="container-custom text-center">
+      <div class="bg-base-6/20 rounded-2xl p-12 max-w-2xl mx-auto">
+        <div class="w-24 h-24 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-12 h-12 text-dark" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        
+        <SectionTitle 
+          title="Детальна інформація незабаром" 
+          subtitle="Ми працюємо над створенням докладної інформації про наші послуги для професіоналів. Зв'яжіться з нами для консультації вже зараз!"
+          class="mb-8"
+        />
+        
+        <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+          <Button href="tel:+380441234567" size="lg">
+            Записатися на консультацію
+          </Button>
+          <Button href="/#contact" variant="secondary" size="lg">
+            Залишити заявку
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Home -->
+  <section class="py-8 bg-base-6/10">
+    <div class="container-custom text-center">
+      <Button href="/" variant="secondary">
+        ← Повернутися на головну
+      </Button>
+    </div>
+  </section>
+</Layout>

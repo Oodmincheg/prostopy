@@ -1,0 +1,256 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: string;
+}
+
+const { 
+  title, 
+  description = "Клініка подології ПРО СТОПИ в Києві. Лікування захворювань стоп, спортивна медицина, дитяча подологія, естетичні процедури. ☎ (044) 123-45-67", 
+  image = "/og-image.jpg",
+  type = "website"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImage = new URL(image, Astro.url);
+---
+
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="keywords" content="подологія Київ, лікування стоп, подолог, врослий ніготь, діабетична стопа, ортопедичні устілки, спортивна подологія, дитяча подологія, геріатрична подологія" />
+    <meta name="author" content="ПРО СТОПИ" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="ПРО СТОПИ - Професійна подологія" />
+    <meta property="og:locale" content="uk_UA" />
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    
+    <!-- Local Business Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MedicalBusiness",
+        "name": "ПРО СТОПИ",
+        "description": "Професійна клініка подології в Києві",
+        "url": "https://prostopy.ua",
+        "telephone": "+380441234567",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "вул. Медична, 15",
+          "addressLocality": "Київ",
+          "postalCode": "01001",
+          "addressCountry": "UA"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 50.4501,
+          "longitude": 30.5234
+        },
+        "openingHours": [
+          "Mo-Fr 09:00-20:00",
+          "Sa 10:00-18:00"
+        ],
+        "priceRange": "$$",
+        "medicalSpecialty": "Podiatry"
+      }
+    </script>
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#E5D8CC" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Prosto+One&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prosto+One&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" /></noscript>
+    
+    <!-- Performance Hints -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  </head>
+  <body class="font-montserrat bg-white text-dark">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <!-- Logo -->
+        <div class="text-2xl font-prosto text-dark">
+          <a href="/" class="hover:text-accent transition-colors">
+            ПРО СТОПИ
+          </a>
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <ul class="hidden md:flex space-x-8">
+          <li><a href="/" class="text-gray hover:text-dark transition-colors">Головна</a></li>
+          <li><a href="/#about" class="text-gray hover:text-dark transition-colors">Про нас</a></li>
+          <li><a href="/#services" class="text-gray hover:text-dark transition-colors">Послуги</a></li>
+          <li><a href="/#contact" class="text-gray hover:text-dark transition-colors">Контакти</a></li>
+        </ul>
+        
+        <!-- CTA Button -->
+        <a href="tel:+380441234567" class="hidden md:block bg-accent text-dark px-6 py-2 rounded-lg font-medium hover:bg-base-4 transition-colors">
+          Записатися
+        </a>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Відкрити меню">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </nav>
+      
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+        <ul class="px-4 py-4 space-y-3">
+          <li><a href="/" class="block text-gray hover:text-dark transition-colors">Головна</a></li>
+          <li><a href="/#about" class="block text-gray hover:text-dark transition-colors">Про нас</a></li>
+          <li><a href="/#services" class="block text-gray hover:text-dark transition-colors">Послуги</a></li>
+          <li><a href="/#contact" class="block text-gray hover:text-dark transition-colors">Контакти</a></li>
+          <li class="pt-2 border-t">
+            <a href="tel:+380441234567" class="block bg-accent text-dark px-4 py-2 rounded-lg font-medium text-center hover:bg-base-4 transition-colors">
+              Записатися
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+      <slot />
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white">
+      <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Logo and About -->
+          <div>
+            <div class="text-2xl font-prosto text-white mb-4">ПРО СТОПИ</div>
+            <p class="text-gray-300 mb-4">Професійна клініка подології в Києві. Турботливий догляд за здоров'ям ваших ніг.</p>
+          </div>
+          
+          <!-- Services -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Послуги</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li><a href="/services/sports-medicine" class="hover:text-white transition-colors">Спортивна медицина</a></li>
+              <li><a href="/services/senior-care" class="hover:text-white transition-colors">Геріатрична подологія</a></li>
+              <li><a href="/services/pediatric-care" class="hover:text-white transition-colors">Дитяча подологія</a></li>
+              <li><a href="/services/aesthetic-podiatry" class="hover:text-white transition-colors">Естетична подологія</a></li>
+              <li><a href="/services/post-surgical" class="hover:text-white transition-colors">Реабілітація</a></li>
+              <li><a href="/services/professional-care" class="hover:text-white transition-colors">Професійний догляд</a></li>
+            </ul>
+          </div>
+          
+          <!-- Contact -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Контакти</h3>
+            <div class="space-y-2 text-gray-300">
+              <p>вул. Медична, 15, Київ</p>
+              <p><a href="tel:+380441234567" class="hover:text-white transition-colors">+38 (044) 123-45-67</a></p>
+              <p><a href="mailto:info@prostopy.ua" class="hover:text-white transition-colors">info@prostopy.ua</a></p>
+              <p>Пн-Пт: 9:00-20:00</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="border-t border-gray-600 mt-8 pt-8 text-center text-gray-400">
+          <p>&copy; 2024 ПРО СТОПИ. Всі права захищені.</p>
+        </div>
+      </div>
+    </footer>
+    
+    <!-- Mobile Menu Script -->
+    <script>
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuBtn?.addEventListener('click', () => {
+        mobileMenu?.classList.toggle('hidden');
+      });
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!mobileMenuBtn?.contains(e.target as Node) && !mobileMenu?.contains(e.target as Node)) {
+          mobileMenu?.classList.add('hidden');
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  :root {
+    --color-dark: #393E46;
+    --color-white: #FFFFFF;
+    --color-accent: #E5D8CC;
+    --color-gray: #878079;
+    --color-base-1: #9A947A;
+    --color-base-2: #DEBA95;
+    --color-base-3: #DDA995;
+    --color-base-4: #C9B19F;
+    --color-base-5: #D2B179;
+    --color-base-6: #BFBDB8;
+  }
+  
+  .font-prosto {
+    font-family: 'Prosto One', cursive;
+  }
+  
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .text-dark {
+    color: var(--color-dark);
+  }
+  
+  .text-gray {
+    color: var(--color-gray);
+  }
+  
+  .bg-accent {
+    background-color: var(--color-accent);
+  }
+  
+  .hover\:bg-base-4:hover {
+    background-color: var(--color-base-4);
+  }
+  
+  .hover\:text-accent:hover {
+    color: var(--color-accent);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
