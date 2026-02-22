@@ -5,26 +5,21 @@ export interface Props {
   class?: string;
 }
 
-const { 
-  variant = 'dark', 
-  size = 'md', 
-  class: className = '' 
+const {
+  variant = 'dark',
+  size = 'md',
+  class: className = '',
 } = Astro.props;
 
-const sizeClasses = {
-  sm: 'text-xl',
-  md: 'text-2xl',
-  lg: 'text-3xl'
+const sizeMap = {
+  sm: 'h-14 md:h-20',
+  md: 'h-20 md:h-28',
+  lg: 'h-28 md:h-36'
 };
 
-const colorClasses = {
-  light: 'text-white',
-  dark: 'text-dark'
-};
-
-const classes = `font-prosto ${sizeClasses[size]} ${colorClasses[variant]} ${className}`.trim();
+const src = variant === 'light' ? '/logo-dark.png' : '/logo.png';
+const blendMode = variant === 'light' ? 'mix-blend-screen' : '';
+const h = sizeMap[size];
 ---
 
-<div class={classes}>
-  ПРО СТОПИ
-</div>
+<img src={src} alt="PRO STOPY" class={`${h} w-auto ${blendMode} ${className}`.trim()} />

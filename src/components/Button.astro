@@ -7,15 +7,15 @@ export interface Props {
   [key: string]: any;
 }
 
-const { 
-  href, 
-  variant = 'primary', 
-  size = 'md', 
-  class: className = '', 
-  ...rest 
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  ...rest
 } = Astro.props;
 
-const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2';
+const baseClasses = 'inline-flex items-center justify-center font-medium rounded-full transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2';
 
 const variantClasses = {
   primary: 'bg-accent text-dark hover:bg-base-4 focus:ring-accent',
@@ -23,9 +23,9 @@ const variantClasses = {
 };
 
 const sizeClasses = {
-  sm: 'px-4 py-2 text-sm',
-  md: 'px-6 py-3 text-base',
-  lg: 'px-8 py-4 text-lg'
+  sm: 'px-5 py-2 text-sm',
+  md: 'px-7 py-3 text-base',
+  lg: 'px-9 py-4 text-lg'
 };
 
 const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`.trim();

@@ -1,4 +1,6 @@
 ---
+import Logo from '../components/Logo.astro';
+
 export interface Props {
   title: string;
   description?: string;
@@ -6,9 +8,9 @@ export interface Props {
   type?: string;
 }
 
-const { 
-  title, 
-  description = "Клініка подології ПРО СТОПИ в Києві. Лікування захворювань стоп, спортивна медицина, дитяча подологія, естетичні процедури. ☎ (044) 123-45-67", 
+const {
+  title,
+  description = "PRO STOPY — професійний подологічний догляд у Києві. Педикюр, лікування врослих нігтів, мозолів, грибка, тріщин. ☎ +380 98 527 94 75",
   image = "/og-image.jpg",
   type = "website"
 } = Astro.props;
@@ -24,100 +26,106 @@ const socialImage = new URL(image, Astro.url);
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <!-- SEO Meta Tags -->
     <title>{title}</title>
-    <meta name="keywords" content="подологія Київ, лікування стоп, подолог, врослий ніготь, діабетична стопа, ортопедичні устілки, спортивна подологія, дитяча подологія, геріатрична подологія" />
-    <meta name="author" content="ПРО СТОПИ" />
+    <meta name="keywords" content="подолог Київ, подологічний педикюр, врослий ніготь Київ, грибок нігтів лікування, мозолі видалення, тріщини стоп, подологія Дніпровська набережна, PRO STOPY" />
+    <meta name="author" content="PRO STOPY" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
-    
+
     <!-- Open Graph Tags -->
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={socialImage} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:site_name" content="ПРО СТОПИ - Професійна подологія" />
+    <meta property="og:site_name" content="PRO STOPY — Професійна подологія" />
     <meta property="og:locale" content="uk_UA" />
-    
+
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
-    
+
     <!-- Local Business Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "MedicalBusiness",
-        "name": "ПРО СТОПИ",
-        "description": "Професійна клініка подології в Києві",
-        "url": "https://prostopy.ua",
-        "telephone": "+380441234567",
+        "name": "PRO STOPY",
+        "description": "Професійний подологічний догляд у Києві — PRO STOPY",
+        "url": "https://prostopy.com",
+        "telephone": "+380985279475",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "вул. Медична, 15",
+          "streetAddress": "ЖК Seven, Дніпровська набережна, 20а",
           "addressLocality": "Київ",
-          "postalCode": "01001",
           "addressCountry": "UA"
         },
         "geo": {
           "@type": "GeoCoordinates",
-          "latitude": 50.4501,
-          "longitude": 30.5234
+          "latitude": 50.4371,
+          "longitude": 30.5680
         },
         "openingHours": [
-          "Mo-Fr 09:00-20:00",
-          "Sa 10:00-18:00"
+          "Mo-Su 10:00-20:00"
         ],
         "priceRange": "$$",
-        "medicalSpecialty": "Podiatry"
+        "medicalSpecialty": "Podiatry",
+        "sameAs": [
+          "https://www.instagram.com/podolog_datsyshyna"
+        ]
       }
     </script>
-    
+
     <!-- Favicon and Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#E5D8CC" />
-    
+
     <!-- Preload Critical Resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Prosto+One&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prosto+One&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" /></noscript>
-    
+
     <!-- Performance Hints -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
   </head>
   <body class="font-montserrat bg-white text-dark">
     <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-      <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <header class="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+      <nav class="container mx-auto px-4 py-3 md:py-1 flex justify-between items-center">
         <!-- Logo -->
-        <div class="text-2xl font-prosto text-dark">
-          <a href="/" class="hover:text-accent transition-colors">
-            ПРО СТОПИ
+        <a href="/" class="hover:opacity-80 transition-opacity">
+          <Logo variant="dark" size="sm" />
+        </a>
+
+        <!-- Desktop Navigation -->
+        <ul class="hidden md:flex space-x-10 items-center">
+          <li><a href="/" class="text-gray hover:text-dark transition-colors font-medium md:text-lg">Головна</a></li>
+          <li><a href="/#services" class="text-gray hover:text-dark transition-colors font-medium md:text-lg">Послуги</a></li>
+          <li><a href="/#about" class="text-gray hover:text-dark transition-colors font-medium md:text-lg">Про нас</a></li>
+          <li><a href="/#contact" class="text-gray hover:text-dark transition-colors font-medium md:text-lg">Контакти</a></li>
+        </ul>
+
+        <!-- CTA + Instagram -->
+        <div class="hidden md:flex items-center gap-5">
+          <a href="https://www.instagram.com/podolog_datsyshyna" target="_blank" rel="noopener noreferrer" class="text-gray hover:text-dark transition-colors" aria-label="Instagram">
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+          <a href="tel:+380985279475" class="bg-accent text-dark px-8 py-3 rounded-full font-medium text-lg hover:bg-base-4 transition-colors">
+            Записатися
           </a>
         </div>
-        
-        <!-- Desktop Navigation -->
-        <ul class="hidden md:flex space-x-8">
-          <li><a href="/" class="text-gray hover:text-dark transition-colors">Головна</a></li>
-          <li><a href="/#about" class="text-gray hover:text-dark transition-colors">Про нас</a></li>
-          <li><a href="/#services" class="text-gray hover:text-dark transition-colors">Послуги</a></li>
-          <li><a href="/#contact" class="text-gray hover:text-dark transition-colors">Контакти</a></li>
-        </ul>
-        
-        <!-- CTA Button -->
-        <a href="tel:+380441234567" class="hidden md:block bg-accent text-dark px-6 py-2 rounded-lg font-medium hover:bg-base-4 transition-colors">
-          Записатися
-        </a>
-        
+
         <!-- Mobile Menu Button -->
         <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Відкрити меню">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,84 +133,119 @@ const socialImage = new URL(image, Astro.url);
           </svg>
         </button>
       </nav>
-      
+
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
         <ul class="px-4 py-4 space-y-3">
-          <li><a href="/" class="block text-gray hover:text-dark transition-colors">Головна</a></li>
-          <li><a href="/#about" class="block text-gray hover:text-dark transition-colors">Про нас</a></li>
-          <li><a href="/#services" class="block text-gray hover:text-dark transition-colors">Послуги</a></li>
-          <li><a href="/#contact" class="block text-gray hover:text-dark transition-colors">Контакти</a></li>
-          <li class="pt-2 border-t">
-            <a href="tel:+380441234567" class="block bg-accent text-dark px-4 py-2 rounded-lg font-medium text-center hover:bg-base-4 transition-colors">
+          <li><a href="/" class="block text-gray hover:text-dark transition-colors font-medium">Головна</a></li>
+          <li><a href="/#services" class="block text-gray hover:text-dark transition-colors font-medium">Послуги</a></li>
+          <li><a href="/#about" class="block text-gray hover:text-dark transition-colors font-medium">Про нас</a></li>
+          <li><a href="/#contact" class="block text-gray hover:text-dark transition-colors font-medium">Контакти</a></li>
+          <li class="pt-2 border-t flex items-center gap-4">
+            <a href="https://www.instagram.com/podolog_datsyshyna" target="_blank" rel="noopener noreferrer" class="text-gray hover:text-dark transition-colors" aria-label="Instagram">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+            </a>
+            <a href="tel:+380985279475" class="block bg-accent text-dark px-4 py-2 rounded-full font-medium text-center hover:bg-base-4 transition-colors flex-1">
               Записатися
             </a>
           </li>
         </ul>
       </div>
     </header>
-    
+
     <!-- Main Content -->
     <main>
       <slot />
     </main>
-    
+
     <!-- Footer -->
     <footer class="bg-dark text-white">
-      <div class="container mx-auto px-4 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="container mx-auto px-4 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
           <!-- Logo and About -->
           <div>
-            <div class="text-2xl font-prosto text-white mb-4">ПРО СТОПИ</div>
-            <p class="text-gray-300 mb-4">Професійна клініка подології в Києві. Турботливий догляд за здоров'ям ваших ніг.</p>
+            <h3 class="text-lg font-prosto mb-6">PRO STOPY</h3>
+            <p class="text-gray-300 mb-6 leading-relaxed">Професійний подологічний догляд у Києві. Здоров'я та краса ваших стоп — наша спеціалізація.</p>
+            <!-- Social Links -->
+            <div class="flex items-center gap-4">
+              <a href="https://www.instagram.com/podolog_datsyshyna" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-dark transition-all" aria-label="Instagram">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+              </a>
+            </div>
           </div>
-          
+
           <!-- Services -->
           <div>
-            <h3 class="text-lg font-semibold mb-4">Послуги</h3>
-            <ul class="space-y-2 text-gray-300">
-              <li><a href="/services/sports-medicine" class="hover:text-white transition-colors">Спортивна медицина</a></li>
-              <li><a href="/services/senior-care" class="hover:text-white transition-colors">Геріатрична подологія</a></li>
-              <li><a href="/services/pediatric-care" class="hover:text-white transition-colors">Дитяча подологія</a></li>
-              <li><a href="/services/aesthetic-podiatry" class="hover:text-white transition-colors">Естетична подологія</a></li>
-              <li><a href="/services/post-surgical" class="hover:text-white transition-colors">Реабілітація</a></li>
-              <li><a href="/services/professional-care" class="hover:text-white transition-colors">Професійний догляд</a></li>
+            <h3 class="text-lg font-semibold mb-6">Послуги</h3>
+            <ul class="space-y-3 text-gray-300">
+              <li><a href="/#services" class="hover:text-white transition-colors">Гігієнічний педикюр</a></li>
+              <li><a href="/#services" class="hover:text-white transition-colors">Подологічний педикюр</a></li>
+              <li><a href="/#services" class="hover:text-white transition-colors">Обробка врослого нігтя</a></li>
+              <li><a href="/#services" class="hover:text-white transition-colors">Обробка мозолів та тріщин</a></li>
+              <li><a href="/#services" class="hover:text-white transition-colors">Лікування грибка нігтів</a></li>
+              <li><a href="/#services" class="hover:text-white transition-colors">Індивідуальні устілки</a></li>
             </ul>
           </div>
-          
+
           <!-- Contact -->
           <div>
-            <h3 class="text-lg font-semibold mb-4">Контакти</h3>
-            <div class="space-y-2 text-gray-300">
-              <p>вул. Медична, 15, Київ</p>
-              <p><a href="tel:+380441234567" class="hover:text-white transition-colors">+38 (044) 123-45-67</a></p>
-              <p><a href="mailto:info@prostopy.ua" class="hover:text-white transition-colors">info@prostopy.ua</a></p>
-              <p>Пн-Пт: 9:00-20:00</p>
+            <h3 class="text-lg font-semibold mb-6">Контакти</h3>
+            <div class="space-y-4 text-gray-300">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                </svg>
+                <a href="https://maps.app.goo.gl/76fG8wXxRjPa4WVB8" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">ЖК Seven, Дніпровська наб., 20а, Київ</a>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                </svg>
+                <a href="tel:+380985279475" class="hover:text-white transition-colors">+380 98 527 94 75</a>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+                <a href="https://www.instagram.com/podolog_datsyshyna" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">@podolog_datsyshyna</a>
+              </div>
             </div>
           </div>
         </div>
-        
+
         <!-- Copyright -->
-        <div class="border-t border-gray-600 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 ПРО СТОПИ. Всі права захищені.</p>
+        <div class="border-t border-gray-600 mt-12 pt-8 text-center text-gray-400">
+          <p>&copy; <span id="footer-year"></span> PRO STOPY. Всі права захищені.</p>
+          <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
         </div>
       </div>
     </footer>
-    
+
     <!-- Mobile Menu Script -->
     <script>
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
-      
+
       mobileMenuBtn?.addEventListener('click', () => {
         mobileMenu?.classList.toggle('hidden');
       });
-      
+
       // Close mobile menu when clicking outside
       document.addEventListener('click', (e) => {
         if (!mobileMenuBtn?.contains(e.target as Node) && !mobileMenu?.contains(e.target as Node)) {
           mobileMenu?.classList.add('hidden');
         }
+      });
+
+      // Close mobile menu when clicking a link
+      mobileMenu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu?.classList.add('hidden');
+        });
       });
     </script>
   </body>
@@ -221,35 +264,7 @@ const socialImage = new URL(image, Astro.url);
     --color-base-5: #D2B179;
     --color-base-6: #BFBDB8;
   }
-  
-  .font-prosto {
-    font-family: 'Prosto One', cursive;
-  }
-  
-  .font-montserrat {
-    font-family: 'Montserrat', sans-serif;
-  }
-  
-  .text-dark {
-    color: var(--color-dark);
-  }
-  
-  .text-gray {
-    color: var(--color-gray);
-  }
-  
-  .bg-accent {
-    background-color: var(--color-accent);
-  }
-  
-  .hover\:bg-base-4:hover {
-    background-color: var(--color-base-4);
-  }
-  
-  .hover\:text-accent:hover {
-    color: var(--color-accent);
-  }
-  
+
   html {
     scroll-behavior: smooth;
   }
