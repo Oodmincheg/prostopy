@@ -5,7 +5,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://prostopy.ua',
+  site: 'https://prostopy.com',
+  trailingSlash: 'always',
   integrations: [
     tailwind(),
     sitemap({
