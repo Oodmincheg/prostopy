@@ -1,0 +1,25 @@
+---
+import { getLangFromUrl, getLocalizedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+
+// Strip existing locale prefix to get the base path
+let basePath = Astro.url.pathname;
+if (basePath.startsWith('/en/')) {
+  basePath = basePath.slice(3);
+} else if (basePath === '/en') {
+  basePath = '/';
+}
+
+const alternateLang = lang === 'uk' ? 'en' : 'uk';
+const alternateLabel = lang === 'uk' ? 'EN' : 'UA';
+const alternatePath = getLocalizedPath(basePath, alternateLang);
+---
+
+<a
+  href={alternatePath}
+  class="text-gray hover:text-dark transition-colors font-medium text-sm uppercase tracking-wide"
+  aria-label={lang === 'uk' ? 'Switch to English' : 'Перейти на українську'}
+>
+  {alternateLabel}
+</a>

@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from './Button.astro';
+import SectionTitle from './SectionTitle.astro';
+import '../styles/global.css';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+
+export interface Props {
+  serviceKey: string;
+}
+
+const { serviceKey } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const title = t(`servicePage.${serviceKey}.title` as any);
+const description = t(`servicePage.${serviceKey}.description` as any);
+const heroTitle = t(`servicePage.${serviceKey}.heroTitle` as any);
+const heroSubtitle = t(`servicePage.${serviceKey}.heroSubtitle` as any);
+const comingSoonSubtitle = t(`servicePage.${serviceKey}.comingSoonSubtitle` as any);
+const homePath = getLocalizedPath('/', lang);
+const contactPath = getLocalizedPath('/#contact', lang);
+---
+
+<Layout title={title} description={description}>
+  <!-- Hero Section -->
+  <section class="gradient-hero py-20 px-4">
+    <div class="container-custom text-center">
+      <h1 class="text-4xl md:text-5xl font-prosto text-dark mb-6">
+        {heroTitle}
+      </h1>
+      <p class="text-xl text-gray mb-8 max-w-3xl mx-auto">
+        {heroSubtitle}
+      </p>
+    </div>
+  </section>
+
+  <!-- Coming Soon Section -->
+  <section class="section-padding bg-white">
+    <div class="container-custom text-center">
+      <div class="bg-base-6/20 rounded-2xl p-12 max-w-2xl mx-auto">
+        <div class="w-24 h-24 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-12 h-12 text-dark" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+
+        <SectionTitle
+          title={t('servicePage.comingSoon')}
+          subtitle={comingSoonSubtitle}
+          class="mb-8"
+        />
+
+        <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+          <Button href="tel:+380985279475" size="lg">
+            {t('servicePage.ctaBook')}
+          </Button>
+          <Button href={contactPath} variant="secondary" size="lg">
+            {t('servicePage.ctaContact')}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Home -->
+  <section class="py-8 bg-base-6/10">
+    <div class="container-custom text-center">
+      <Button href={homePath} variant="secondary">
+        {t('servicePage.back')}
+      </Button>
+    </div>
+  </section>
+</Layout>

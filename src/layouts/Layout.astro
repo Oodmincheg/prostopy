@@ -1,5 +1,8 @@
 ---
 import Logo from '../components/Logo.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getAlternateUrl } from '../i18n/utils';
+import { languages } from '../i18n/ui';
 
 export interface Props {
   title: string;
@@ -8,19 +11,59 @@ export interface Props {
   type?: string;
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const {
   title,
-  description = "PRO STOPY — професійний подологічний догляд у Києві. Педикюр, лікування врослих нігтів, мозолів, грибка, тріщин. ☎ +380 98 527 94 75",
+  description = t('meta.description'),
   image = "/og-image.jpg",
   type = "website"
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL(image, Astro.url);
+
+const homePath = getLocalizedPath('/', lang);
+const servicesAnchor = getLocalizedPath('/#services', lang);
+const aboutAnchor = getLocalizedPath('/#about', lang);
+const contactAnchor = getLocalizedPath('/#contact', lang);
+
+// Build alternate URLs for hreflang
+const alternates = Object.keys(languages).map((l) => ({
+  lang: l,
+  hreflang: l === 'uk' ? 'uk-UA' : 'en-US',
+  href: getAlternateUrl(Astro.url.pathname, l as any, Astro.site?.toString() ?? 'https://prostopy.com/'),
+}));
+
+// JSON-LD data
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  "name": "PRO STOPY",
+  "description": t('jsonld.description'),
+  "url": "https://prostopy.com",
+  "telephone": "+380985279475",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": t('jsonld.streetAddress'),
+    "addressLocality": t('jsonld.city'),
+    "addressCountry": "UA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 50.4371,
+    "longitude": 30.5680
+  },
+  "openingHours": ["Mo-Su 10:00-20:00"],
+  "priceRange": "$$",
+  "medicalSpecialty": "Podiatry",
+  "sameAs": ["https://www.instagram.com/podolog_datsyshyna"]
+};
 ---
 
 <!doctype html>
-<html lang="uk">
+<html lang={lang === 'uk' ? 'uk' : 'en'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -29,10 +72,16 @@ const socialImage = new URL(image, Astro.url);
 
     <!-- SEO Meta Tags -->
     <title>{title}</title>
-    <meta name="keywords" content="подолог Київ, подологічний педикюр, врослий ніготь Київ, грибок нігтів лікування, мозолі видалення, тріщини стоп, подологія Дніпровська набережна, PRO STOPY" />
+    <meta name="keywords" content={t('meta.keywords')} />
     <meta name="author" content="PRO STOPY" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
+
+    <!-- hreflang tags -->
+    {alternates.map(({ hreflang, href }) => (
+      <link rel="alternate" hreflang={hreflang} href={href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={getAlternateUrl(Astro.url.pathname, 'uk', Astro.site?.toString() ?? 'https://prostopy.com/')} />
 
     <!-- Open Graph Tags -->
     <meta property="og:type" content={type} />
@@ -40,8 +89,8 @@ const socialImage = new URL(image, Astro.url);
     <meta property="og:description" content={description} />
     <meta property="og:image" content={socialImage} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:site_name" content="PRO STOPY — Професійна подологія" />
-    <meta property="og:locale" content="uk_UA" />
+    <meta property="og:site_name" content={t('meta.ogSiteName')} />
+    <meta property="og:locale" content={t('meta.ogLocale')} />
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -50,35 +99,7 @@ const socialImage = new URL(image, Astro.url);
     <meta name="twitter:image" content={socialImage} />
 
     <!-- Local Business Schema -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "MedicalBusiness",
-        "name": "PRO STOPY",
-        "description": "Професійний подологічний догляд у Києві — PRO STOPY",
-        "url": "https://prostopy.com",
-        "telephone": "+380985279475",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "ЖК Seven, Дніпровська набережна, 20а",
-          "addressLocality": "Київ",
-          "addressCountry": "UA"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 50.4371,
-          "longitude": 30.5680
-        },
-        "openingHours": [
-          "Mo-Su 10:00-20:00"
-        ],
-        "priceRange": "$$",
-        "medicalSpecialty": "Podiatry",
-        "sameAs": [
-          "https://www.instagram.com/podolog_datsyshyna"
-        ]
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <!-- Favicon and Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -102,32 +123,33 @@ const socialImage = new URL(image, Astro.url);
     <header class="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50">
       <nav class="container mx-auto px-4 py-3 md:py-1 flex justify-between items-center">
         <!-- Logo -->
-        <a href="/" class="hover:opacity-80 transition-opacity">
+        <a href={homePath} class="hover:opacity-80 transition-opacity">
           <Logo variant="dark" size="sm" />
         </a>
 
         <!-- Desktop Navigation -->
         <ul class="hidden md:flex space-x-10 items-center">
-          <li><a href="/" class="text-gray hover:text-dark transition-colors font-medium md:text-lg">Головна</a></li>
-          <li><a href="/#services" class="text-gray hover:text-dark transition-colors font-medium md:text-lg">Послуги</a></li>
-          <li><a href="/#about" class="text-gray hover:text-dark transition-colors font-medium md:text-lg">Про нас</a></li>
-          <li><a href="/#contact" class="text-gray hover:text-dark transition-colors font-medium md:text-lg">Контакти</a></li>
+          <li><a href={homePath} class="text-gray hover:text-dark transition-colors font-medium md:text-lg">{t('nav.home')}</a></li>
+          <li><a href={servicesAnchor} class="text-gray hover:text-dark transition-colors font-medium md:text-lg">{t('nav.services')}</a></li>
+          <li><a href={aboutAnchor} class="text-gray hover:text-dark transition-colors font-medium md:text-lg">{t('nav.about')}</a></li>
+          <li><a href={contactAnchor} class="text-gray hover:text-dark transition-colors font-medium md:text-lg">{t('nav.contacts')}</a></li>
         </ul>
 
-        <!-- CTA + Instagram -->
+        <!-- CTA + Language Switcher + Instagram -->
         <div class="hidden md:flex items-center gap-5">
+          <LanguageSwitcher />
           <a href="https://www.instagram.com/podolog_datsyshyna" target="_blank" rel="noopener noreferrer" class="text-gray hover:text-dark transition-colors" aria-label="Instagram">
             <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
             </svg>
           </a>
           <a href="tel:+380985279475" class="bg-accent text-dark px-8 py-3 rounded-full font-medium text-lg hover:bg-base-4 transition-colors">
-            Записатися
+            {t('nav.appointment')}
           </a>
         </div>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Відкрити меню">
+        <button id="mobile-menu-btn" class="md:hidden p-2" aria-label={t('nav.openMenu')}>
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
@@ -137,18 +159,19 @@ const socialImage = new URL(image, Astro.url);
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
         <ul class="px-4 py-4 space-y-3">
-          <li><a href="/" class="block text-gray hover:text-dark transition-colors font-medium">Головна</a></li>
-          <li><a href="/#services" class="block text-gray hover:text-dark transition-colors font-medium">Послуги</a></li>
-          <li><a href="/#about" class="block text-gray hover:text-dark transition-colors font-medium">Про нас</a></li>
-          <li><a href="/#contact" class="block text-gray hover:text-dark transition-colors font-medium">Контакти</a></li>
+          <li><a href={homePath} class="block text-gray hover:text-dark transition-colors font-medium">{t('nav.home')}</a></li>
+          <li><a href={servicesAnchor} class="block text-gray hover:text-dark transition-colors font-medium">{t('nav.services')}</a></li>
+          <li><a href={aboutAnchor} class="block text-gray hover:text-dark transition-colors font-medium">{t('nav.about')}</a></li>
+          <li><a href={contactAnchor} class="block text-gray hover:text-dark transition-colors font-medium">{t('nav.contacts')}</a></li>
           <li class="pt-2 border-t flex items-center gap-4">
+            <LanguageSwitcher />
             <a href="https://www.instagram.com/podolog_datsyshyna" target="_blank" rel="noopener noreferrer" class="text-gray hover:text-dark transition-colors" aria-label="Instagram">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
               </svg>
             </a>
             <a href="tel:+380985279475" class="block bg-accent text-dark px-4 py-2 rounded-full font-medium text-center hover:bg-base-4 transition-colors flex-1">
-              Записатися
+              {t('nav.appointment')}
             </a>
           </li>
         </ul>
@@ -167,7 +190,7 @@ const socialImage = new URL(image, Astro.url);
           <!-- Logo and About -->
           <div>
             <h3 class="text-lg font-prosto mb-6">PRO STOPY</h3>
-            <p class="text-gray-300 mb-6 leading-relaxed">Професійний подологічний догляд у Києві. Здоров'я та краса ваших стоп — наша спеціалізація.</p>
+            <p class="text-gray-300 mb-6 leading-relaxed">{t('footer.about')}</p>
             <!-- Social Links -->
             <div class="flex items-center gap-4">
               <a href="https://www.instagram.com/podolog_datsyshyna" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-dark transition-all" aria-label="Instagram">
@@ -180,26 +203,26 @@ const socialImage = new URL(image, Astro.url);
 
           <!-- Services -->
           <div>
-            <h3 class="text-lg font-semibold mb-6">Послуги</h3>
+            <h3 class="text-lg font-semibold mb-6">{t('footer.services')}</h3>
             <ul class="space-y-3 text-gray-300">
-              <li><a href="/#services" class="hover:text-white transition-colors">Гігієнічний педикюр</a></li>
-              <li><a href="/#services" class="hover:text-white transition-colors">Подологічний педикюр</a></li>
-              <li><a href="/#services" class="hover:text-white transition-colors">Обробка врослого нігтя</a></li>
-              <li><a href="/#services" class="hover:text-white transition-colors">Обробка мозолів та тріщин</a></li>
-              <li><a href="/#services" class="hover:text-white transition-colors">Лікування грибка нігтів</a></li>
-              <li><a href="/#services" class="hover:text-white transition-colors">Індивідуальні устілки</a></li>
+              <li><a href={servicesAnchor} class="hover:text-white transition-colors">{t('footer.service.1')}</a></li>
+              <li><a href={servicesAnchor} class="hover:text-white transition-colors">{t('footer.service.2')}</a></li>
+              <li><a href={servicesAnchor} class="hover:text-white transition-colors">{t('footer.service.3')}</a></li>
+              <li><a href={servicesAnchor} class="hover:text-white transition-colors">{t('footer.service.4')}</a></li>
+              <li><a href={servicesAnchor} class="hover:text-white transition-colors">{t('footer.service.5')}</a></li>
+              <li><a href={servicesAnchor} class="hover:text-white transition-colors">{t('footer.service.6')}</a></li>
             </ul>
           </div>
 
           <!-- Contact -->
           <div>
-            <h3 class="text-lg font-semibold mb-6">Контакти</h3>
+            <h3 class="text-lg font-semibold mb-6">{t('footer.contacts')}</h3>
             <div class="space-y-4 text-gray-300">
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
                 </svg>
-                <a href="https://maps.app.goo.gl/76fG8wXxRjPa4WVB8" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">ЖК Seven, Дніпровська наб., 20а, Київ</a>
+                <a href="https://maps.app.goo.gl/76fG8wXxRjPa4WVB8" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">{t('contact.address.text')}</a>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -219,7 +242,7 @@ const socialImage = new URL(image, Astro.url);
 
         <!-- Copyright -->
         <div class="border-t border-gray-600 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; <span id="footer-year"></span> PRO STOPY. Всі права захищені.</p>
+          <p>&copy; <span id="footer-year"></span> {t('footer.copyright')}</p>
           <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
         </div>
       </div>

@@ -7,6 +7,13 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://prostopy.com',
   trailingSlash: 'always',
+  i18n: {
+    defaultLocale: 'uk',
+    locales: ['uk', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [
     tailwind(),
     sitemap({
@@ -16,9 +23,10 @@ export default defineConfig({
       i18n: {
         defaultLocale: 'uk',
         locales: {
-          uk: 'uk-UA'
-        }
-      }
+          uk: 'uk-UA',
+          en: 'en-US',
+        },
+      },
     })
   ],
   compressHTML: true,
