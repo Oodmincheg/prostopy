@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /*.pdf
 
-Sitemap: https://prostopy.ua/sitemap.xml
+Sitemap: https://prostopy.com/sitemap-index.xml
