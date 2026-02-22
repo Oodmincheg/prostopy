@@ -29,6 +29,10 @@ const servicesAnchor = getLocalizedPath('/#services', lang);
 const aboutAnchor = getLocalizedPath('/#about', lang);
 const contactAnchor = getLocalizedPath('/#contact', lang);
 
+// Determine current page for aria-current
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = pathname === '/' || pathname === '/en';
+
 // Build alternate URLs for hreflang
 const alternates = Object.keys(languages).map((l) => ({
   lang: l,
@@ -36,18 +40,21 @@ const alternates = Object.keys(languages).map((l) => ({
   href: getAlternateUrl(Astro.url.pathname, l as any, Astro.site?.toString() ?? 'https://prostopy.com/'),
 }));
 
-// JSON-LD data
-const jsonLd = {
+// JSON-LD: MedicalBusiness
+const jsonLdBusiness = {
   "@context": "https://schema.org",
   "@type": "MedicalBusiness",
+  "@id": "https://prostopy.com/#business",
   "name": "PRO STOPY",
   "description": t('jsonld.description'),
   "url": "https://prostopy.com",
   "telephone": "+380985279475",
+  "image": "https://prostopy.com/og-image.jpg",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": t('jsonld.streetAddress'),
     "addressLocality": t('jsonld.city'),
+    "postalCode": "02000",
     "addressCountry": "UA"
   },
   "geo": {
@@ -55,10 +62,51 @@ const jsonLd = {
     "latitude": 50.4371,
     "longitude": 30.5680
   },
-  "openingHours": ["Mo-Su 10:00-20:00"],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+380985279475",
+    "contactType": "customer service",
+    "availableLanguage": ["Ukrainian", "English"]
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Kyiv",
+    "@id": "https://www.wikidata.org/wiki/Q1899"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "10:00",
+    "closes": "20:00"
+  },
   "priceRange": "$$",
   "medicalSpecialty": "Podiatry",
+  "availableService": [
+    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Гігієнічний педикюр" : "Hygienic pedicure" },
+    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Подологічний педикюр" : "Podiatric pedicure" },
+    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Обробка врослого нігтя" : "Ingrown nail treatment" },
+    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Обробка мозолів та тріщин" : "Callus & crack treatment" },
+    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Лікування грибка нігтів" : "Nail fungus treatment" },
+    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Розвантажувальні устілки" : "Offloading insoles" },
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "30",
+    "bestRating": "5"
+  },
   "sameAs": ["https://www.instagram.com/podolog_datsyshyna"]
+};
+
+// JSON-LD: WebSite (helps Google sitelinks)
+const jsonLdWebsite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://prostopy.com/#website",
+  "url": "https://prostopy.com",
+  "name": "PRO STOPY",
+  "inLanguage": lang === 'uk' ? 'uk-UA' : 'en-US',
+  "publisher": { "@id": "https://prostopy.com/#business" }
 };
 ---
 
@@ -94,12 +142,15 @@ const jsonLd = {
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@podolog_datsyshyna" />
+    <meta name="twitter:creator" content="@podolog_datsyshyna" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
 
-    <!-- Local Business Schema -->
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdBusiness)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebsite)} />
 
     <!-- Favicon and Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -129,7 +180,7 @@ const jsonLd = {
 
         <!-- Desktop Navigation -->
         <ul class="hidden md:flex space-x-10 items-center">
-          <li><a href={homePath} class="text-gray hover:text-dark transition-colors font-medium md:text-lg">{t('nav.home')}</a></li>
+          <li><a href={homePath} class="text-gray hover:text-dark transition-colors font-medium md:text-lg" {...(isHome ? {'aria-current': 'page'} : {})}>{t('nav.home')}</a></li>
           <li><a href={servicesAnchor} class="text-gray hover:text-dark transition-colors font-medium md:text-lg">{t('nav.services')}</a></li>
           <li><a href={aboutAnchor} class="text-gray hover:text-dark transition-colors font-medium md:text-lg">{t('nav.about')}</a></li>
           <li><a href={contactAnchor} class="text-gray hover:text-dark transition-colors font-medium md:text-lg">{t('nav.contacts')}</a></li>
@@ -150,7 +201,7 @@ const jsonLd = {
 
         <!-- Mobile Menu Button -->
         <button id="mobile-menu-btn" class="md:hidden p-2" aria-label={t('nav.openMenu')}>
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
@@ -159,7 +210,7 @@ const jsonLd = {
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
         <ul class="px-4 py-4 space-y-3">
-          <li><a href={homePath} class="block text-gray hover:text-dark transition-colors font-medium">{t('nav.home')}</a></li>
+          <li><a href={homePath} class="block text-gray hover:text-dark transition-colors font-medium" {...(isHome ? {'aria-current': 'page'} : {})}>{t('nav.home')}</a></li>
           <li><a href={servicesAnchor} class="block text-gray hover:text-dark transition-colors font-medium">{t('nav.services')}</a></li>
           <li><a href={aboutAnchor} class="block text-gray hover:text-dark transition-colors font-medium">{t('nav.about')}</a></li>
           <li><a href={contactAnchor} class="block text-gray hover:text-dark transition-colors font-medium">{t('nav.contacts')}</a></li>
@@ -219,19 +270,19 @@ const jsonLd = {
             <h3 class="text-lg font-semibold mb-6">{t('footer.contacts')}</h3>
             <div class="space-y-4 text-gray-300">
               <div class="flex items-start gap-3">
-                <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
                 </svg>
                 <a href="https://maps.app.goo.gl/76fG8wXxRjPa4WVB8" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">{t('contact.address.text')}</a>
               </div>
               <div class="flex items-start gap-3">
-                <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                 </svg>
                 <a href="tel:+380985279475" class="hover:text-white transition-colors">+380 98 527 94 75</a>
               </div>
               <div class="flex items-start gap-3">
-                <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mt-0.5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
                 </svg>
                 <a href="https://www.instagram.com/podolog_datsyshyna" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">@podolog_datsyshyna</a>
