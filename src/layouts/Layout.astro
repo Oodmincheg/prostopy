@@ -40,10 +40,10 @@ const alternates = Object.keys(languages).map((l) => ({
   href: getAlternateUrl(Astro.url.pathname, l as any, Astro.site?.toString() ?? 'https://prostopy.com/'),
 }));
 
-// JSON-LD: MedicalBusiness
+// JSON-LD: HealthAndBeautyBusiness (podology in UA is non-medical)
 const jsonLdBusiness = {
   "@context": "https://schema.org",
-  "@type": "MedicalBusiness",
+  "@type": "HealthAndBeautyBusiness",
   "@id": "https://prostopy.com/#business",
   "name": "PRO STOPY",
   "description": t('jsonld.description'),
@@ -80,14 +80,13 @@ const jsonLdBusiness = {
     "closes": "20:00"
   },
   "priceRange": "$$",
-  "medicalSpecialty": "Podiatry",
   "availableService": [
-    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Гігієнічний педикюр" : "Hygienic pedicure" },
-    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Подологічний педикюр" : "Podiatric pedicure" },
-    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Обробка врослого нігтя" : "Ingrown nail treatment" },
-    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Обробка мозолів та тріщин" : "Callus & crack treatment" },
-    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Лікування грибка нігтів" : "Nail fungus treatment" },
-    { "@type": "MedicalProcedure", "name": lang === 'uk' ? "Розвантажувальні устілки" : "Offloading insoles" },
+    { "@type": "Service", "name": lang === 'uk' ? "Гігієнічний педикюр" : "Hygienic pedicure" },
+    { "@type": "Service", "name": lang === 'uk' ? "Подологічний педикюр" : "Podiatric pedicure" },
+    { "@type": "Service", "name": lang === 'uk' ? "Обробка врослого нігтя" : "Ingrown nail treatment" },
+    { "@type": "Service", "name": lang === 'uk' ? "Обробка мозолів та тріщин" : "Callus & crack treatment" },
+    { "@type": "Service", "name": lang === 'uk' ? "Лікування грибка нігтів" : "Nail fungus treatment" },
+    { "@type": "Service", "name": lang === 'uk' ? "Розвантажувальні устілки" : "Offloading insoles" },
   ],
   "aggregateRating": {
     "@type": "AggregateRating",
