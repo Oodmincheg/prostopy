@@ -46,12 +46,14 @@ export interface Props {
   fromPrice: string;
   symptomsTitle: string;
   symptoms: string[];
+  symptomsNote?: string;
   steps: Step[];
   priceGroups: PriceGroup[];
   priceNote?: string;
   pairs: PhotoPair[];
   extras?: PhotoExtra[];
   faq: FaqItem[];
+  ctaText?: string;
   jsonLd: Record<string, unknown>;
 }
 
@@ -63,12 +65,14 @@ const {
   fromPrice,
   symptomsTitle,
   symptoms,
+  symptomsNote,
   steps,
   priceGroups,
   priceNote,
   pairs,
   extras = [],
   faq,
+  ctaText = 'Подзвоніть або напишіть у дірект — підкажемо, яка процедура потрібна саме вам.',
   jsonLd,
 } = Astro.props;
 
@@ -97,6 +101,48 @@ const INSTAGRAM_HREF = 'https://www.instagram.com/podolog_datsyshyna';
     </div>
   </section>
 
+  <!-- Before / After -->
+  <section class="section-padding bg-base-6/10">
+    <div class="container-custom max-w-4xl">
+      <SectionTitle title="Результати роботи" class="mb-12" />
+      <div class="space-y-12">
+        {pairs.map((pair, i) => (
+          <figure>
+            <input type="checkbox" id={`pair-reveal-${i}`} class="reveal-toggle" hidden />
+            <div class="pair-grid">
+              <div class="pair-before relative">
+                <Image src={pair.before} alt={`${pair.label} — до процедури`} class="rounded-2xl w-full h-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 50vw, 400px" />
+                <span class="absolute top-3 left-3 bg-dark/80 text-white text-xs font-medium px-3 py-1 rounded-full">До</span>
+              </div>
+              <div class="relative">
+                <Image src={pair.after} alt={`${pair.label} — після процедури`} class="rounded-2xl w-full h-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 90vw, 400px" />
+                <span class="absolute top-3 left-3 bg-accent text-dark text-xs font-medium px-3 py-1 rounded-full">Після</span>
+              </div>
+            </div>
+            <div class="reveal-controls mt-4 text-center">
+              <label for={`pair-reveal-${i}`} class="inline-flex items-center gap-2 cursor-pointer text-dark font-medium underline decoration-accent decoration-2 underline-offset-4 hover:decoration-base-4">
+                <span class="label-show">Показати, як було</span>
+                <span class="label-hide">Сховати фото «до»</span>
+              </label>
+            </div>
+            <figcaption class="text-gray text-sm mt-3 text-center">{pair.label}</figcaption>
+          </figure>
+        ))}
+        {extras.length > 0 && (
+          <div class="grid grid-cols-2 gap-4">
+            {extras.map((extra) => (
+              <figure>
+                <Image src={extra.img} alt={extra.caption} class="rounded-2xl w-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 50vw, 400px" />
+                <figcaption class="text-gray text-sm mt-3 text-center">{extra.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
+      </div>
+      <p class="text-gray text-xs mt-8 text-center">Фото опубліковано за згодою клієнтів.</p>
+    </div>
+  </section>
+
   <!-- Symptoms -->
   <section class="section-padding bg-white">
     <div class="container-custom max-w-4xl">
@@ -111,6 +157,14 @@ const INSTAGRAM_HREF = 'https://www.instagram.com/podolog_datsyshyna';
           </li>
         ))}
       </ul>
+      {symptomsNote && (
+        <div class="mt-6 flex items-start gap-3 bg-base-3/20 border border-base-3/50 rounded-xl p-4">
+          <svg class="w-6 h-6 text-dark flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+          </svg>
+          <p class="text-dark text-sm leading-relaxed">{symptomsNote}</p>
+        </div>
+      )}
     </div>
   </section>
 
@@ -202,43 +256,8 @@ const INSTAGRAM_HREF = 'https://www.instagram.com/podolog_datsyshyna';
     </div>
   </section>
 
-  <!-- Before / After -->
-  <section class="section-padding bg-white">
-    <div class="container-custom max-w-4xl">
-      <SectionTitle title="Результати роботи" class="mb-12" />
-      <div class="space-y-12">
-        {pairs.map((pair) => (
-          <figure>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="relative">
-                <Image src={pair.before} alt={`${pair.label} — до процедури`} class="rounded-2xl w-full h-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 50vw, 400px" />
-                <span class="absolute top-3 left-3 bg-dark/80 text-white text-xs font-medium px-3 py-1 rounded-full">До</span>
-              </div>
-              <div class="relative">
-                <Image src={pair.after} alt={`${pair.label} — після процедури`} class="rounded-2xl w-full h-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 50vw, 400px" />
-                <span class="absolute top-3 left-3 bg-accent text-dark text-xs font-medium px-3 py-1 rounded-full">Після</span>
-              </div>
-            </div>
-            <figcaption class="text-gray text-sm mt-3 text-center">{pair.label}</figcaption>
-          </figure>
-        ))}
-        {extras.length > 0 && (
-          <div class="grid grid-cols-2 gap-4">
-            {extras.map((extra) => (
-              <figure>
-                <Image src={extra.img} alt={extra.caption} class="rounded-2xl w-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 50vw, 400px" />
-                <figcaption class="text-gray text-sm mt-3 text-center">{extra.caption}</figcaption>
-              </figure>
-            ))}
-          </div>
-        )}
-      </div>
-      <p class="text-gray text-xs mt-8 text-center">Фото опубліковано за згодою клієнтів.</p>
-    </div>
-  </section>
-
   <!-- FAQ -->
-  <section class="section-padding bg-base-6/10">
+  <section class="section-padding bg-white">
     <div class="container-custom max-w-3xl">
       <SectionTitle title="Часті питання" class="mb-10" />
       <div class="space-y-4">
@@ -261,9 +280,7 @@ const INSTAGRAM_HREF = 'https://www.instagram.com/podolog_datsyshyna';
   <section class="section-padding bg-dark text-white">
     <div class="container-custom max-w-3xl text-center">
       <h2 class="text-2xl md:text-3xl font-prosto mb-4">Запишіться на прийом</h2>
-      <p class="text-gray-300 mb-8">
-        Подзвоніть або напишіть у дірект — підкажемо, яка процедура потрібна саме вам.
-      </p>
+      <p class="text-gray-300 mb-8">{ctaText}</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
         <Button href={PHONE_HREF} size="lg">Подзвонити · {PHONE_TEXT}</Button>
         <Button href={INSTAGRAM_HREF} size="lg" class="!border-white/40 !text-white hover:!bg-white/10" variant="secondary" target="_blank" rel="noopener noreferrer">
