@@ -9,6 +9,8 @@ export interface Props {
   description?: string;
   image?: string;
   type?: string;
+  /** Page exists only in Ukrainian — emit no EN hreflang alternate */
+  ukOnly?: boolean;
 }
 
 const lang = getLangFromUrl(Astro.url);
@@ -18,7 +20,8 @@ const {
   title,
   description = t('meta.description'),
   image = "/og-image.jpg",
-  type = "website"
+  type = "website",
+  ukOnly = false
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -33,8 +36,8 @@ const contactAnchor = getLocalizedPath('/#contact', lang);
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isHome = pathname === '/' || pathname === '/en';
 
-// Build alternate URLs for hreflang
-const alternates = Object.keys(languages).map((l) => ({
+// Build alternate URLs for hreflang; ukOnly pages have no EN counterpart
+const alternates = (ukOnly ? ['uk'] : Object.keys(languages)).map((l) => ({
   lang: l,
   hreflang: l === 'uk' ? 'uk-UA' : 'en-US',
   href: getAlternateUrl(Astro.url.pathname, l as any, Astro.site?.toString() ?? 'https://prostopy.com/'),

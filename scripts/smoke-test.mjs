@@ -33,6 +33,25 @@ for (const s of services) {
   check(fileExists(`/en/services/${s}/index.html`), `Missing EN service page: ${s}`);
 }
 
+// 2b. UK-only service landing pages (no EN version by design)
+const landingPages = ['aparatnyi-pedykiur', 'vroslyi-nihot', 'borodavky'];
+for (const s of landingPages) {
+  check(fileExists(`/services/${s}/index.html`), `Missing landing page: ${s}`);
+  check(!fileExists(`/en/services/${s}/index.html`), `Unexpected EN version of landing page: ${s}`);
+}
+const landingChecks = [
+  ['/services/aparatnyi-pedykiur/index.html', 'від 1200'],
+  ['/services/vroslyi-nihot/index.html', 'від 650'],
+  ['/services/borodavky/index.html', 'від 550'],
+];
+for (const [path, fromPrice] of landingChecks) {
+  if (!fileExists(path)) continue;
+  const html = readFile(path);
+  check(html.includes(fromPrice), `${path} missing "${fromPrice}"`);
+  check(html.includes('tel:+380985279475'), `${path} missing phone CTA`);
+  check(!html.includes('hreflang="en-US"'), `${path} must not emit EN hreflang`);
+}
+
 // 3. Homepage content checks
 const ukHome = fileExists('/index.html') ? readFile('/index.html') : '';
 const enHome = fileExists('/en/index.html') ? readFile('/en/index.html') : '';
@@ -64,5 +83,5 @@ if (errors.length > 0) {
   console.error('');
   process.exit(1);
 } else {
-  console.log(`\n✅ Smoke test passed (${requiredPages.length + services.length * 2 + 8} checks)\n`);
+  console.log(`\n✅ Smoke test passed (${requiredPages.length + services.length * 2 + landingPages.length * 2 + landingChecks.length * 3 + 8} checks)\n`);
 }
