@@ -34,13 +34,13 @@ for (const s of services) {
 }
 
 // 2b. UK-only service landing pages (no EN version by design)
-const landingPages = ['aparatnyi-pedykiur', 'vroslyi-nihot', 'borodavky'];
+const landingPages = ['podolohichnyi-pedykiur', 'vroslyi-nihot', 'borodavky'];
 for (const s of landingPages) {
   check(fileExists(`/services/${s}/index.html`), `Missing landing page: ${s}`);
   check(!fileExists(`/en/services/${s}/index.html`), `Unexpected EN version of landing page: ${s}`);
 }
 const landingChecks = [
-  ['/services/aparatnyi-pedykiur/index.html', 'від 1200'],
+  ['/services/podolohichnyi-pedykiur/index.html', 'від 1300'],
   ['/services/vroslyi-nihot/index.html', 'від 650'],
   ['/services/borodavky/index.html', 'від 550'],
 ];
