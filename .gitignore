@@ -20,5 +20,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# raw client photos and price-list images (processed copies live in src/assets)
+before-after/
+price/
+
 # jetbrains setting folder
 .idea/

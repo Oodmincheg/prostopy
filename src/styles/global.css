@@ -101,6 +101,34 @@ select:focus {
   @apply outline-2 outline-offset-2 outline-accent;
 }
 
+/* Before/after reveal on service landings: «до» hidden until the checkbox toggle */
+.pair-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 22rem;
+  margin-inline: auto;
+}
+.pair-before {
+  display: none;
+}
+.reveal-toggle:checked ~ .pair-grid {
+  grid-template-columns: 1fr 1fr;
+  max-width: none;
+}
+.reveal-toggle:checked ~ .pair-grid .pair-before {
+  display: block;
+}
+.label-hide {
+  display: none;
+}
+.reveal-toggle:checked ~ .reveal-controls .label-show {
+  display: none;
+}
+.reveal-toggle:checked ~ .reveal-controls .label-hide {
+  display: inline;
+}
+
 /* Service card hover animation */
 .service-card {
   transform: translateY(0);
