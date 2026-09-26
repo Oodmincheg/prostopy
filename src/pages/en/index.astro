@@ -3,7 +3,9 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import Button from '../../components/Button.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
-import teamPortrait from '../../assets/team/podoloh-portrait.jpg';
+import annaPhoto from '../../assets/team/podoloh-cabinet.jpg';
+import yuliiaPhoto from '../../assets/team/yuliia.jpg';
+import viktoriiaPhoto from '../../assets/team/viktoriia.jpg';
 import '../../styles/global.css';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '../../i18n/utils';
 import { ui } from '../../i18n/ui';
@@ -272,23 +274,35 @@ const reviewColors = ['bg-accent', 'bg-base-2/40', 'bg-base-3/40', 'bg-base-5/40
         class="mb-16"
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center max-w-4xl mx-auto">
-        <Image
-          src={teamPortrait}
-          alt={t('team.master.name')}
-          class="rounded-3xl w-full object-cover aspect-[3/4] shadow-lg"
-          widths={[450, 900]}
-          sizes="(max-width: 768px) 90vw, 450px"
-        />
-        <div>
-          <h3 class="text-2xl md:text-3xl font-prosto text-dark mb-2">{t('team.master.name')}</h3>
-          <p class="text-gray font-medium mb-6">{t('team.master.role')}</p>
-          <p class="text-gray leading-relaxed mb-8">{t('team.master.bio')}</p>
-          <div class="flex flex-wrap gap-3">
-            <span class="bg-white rounded-full px-4 py-1.5 text-sm text-dark shadow-sm">1000+ {t('about.statClients')}</span>
-            <span class="bg-white rounded-full px-4 py-1.5 text-sm text-dark shadow-sm">5.0 {t('about.statRating')}</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <Image src={annaPhoto} alt={t('team.master.name')} class="w-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 90vw, 350px" />
+          <div class="p-6">
+            <h3 class="text-xl font-prosto text-dark mb-1">{t('team.master.name')}</h3>
+            <p class="text-gray text-sm font-medium mb-3">{t('team.master.role')}</p>
+            <p class="text-gray text-sm leading-relaxed">{t('team.master.bio')}</p>
           </div>
         </div>
+        <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <Image src={yuliiaPhoto} alt={t('team.podolog.name')} class="w-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 90vw, 350px" />
+          <div class="p-6">
+            <h3 class="text-xl font-prosto text-dark mb-1">{t('team.podolog.name')}</h3>
+            <p class="text-gray text-sm font-medium mb-3">{t('team.podolog.role')}</p>
+            <p class="text-gray text-sm leading-relaxed">{t('team.podolog.bio')}</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <Image src={viktoriiaPhoto} alt={t('team.manager.name')} class="w-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 90vw, 350px" />
+          <div class="p-6">
+            <h3 class="text-xl font-prosto text-dark mb-1">{t('team.manager.name')}</h3>
+            <p class="text-gray text-sm font-medium mb-3">{t('team.manager.role')}</p>
+            <p class="text-gray text-sm leading-relaxed">{t('team.manager.bio')}</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-3 justify-center mt-10">
+        <span class="bg-white rounded-full px-4 py-1.5 text-sm text-dark shadow-sm">1000+ {t('about.statClients')}</span>
+        <span class="bg-white rounded-full px-4 py-1.5 text-sm text-dark shadow-sm">5.0 {t('about.statRating')}</span>
       </div>
     </div>
   </section>
