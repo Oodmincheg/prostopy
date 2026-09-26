@@ -150,6 +150,29 @@ const jsonLdWebsite = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
 
+    <!-- Google Ads tag: consent defaults must run before gtag.js loads -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH']
+      });
+      gtag('consent', 'default', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'denied'
+      });
+      gtag('set', 'ads_data_redaction', true);
+      gtag('js', new Date());
+      gtag('config', 'AW-18418801309');
+    </script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=AW-18418801309"></script>
+
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdBusiness)} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebsite)} />
@@ -295,7 +318,7 @@ const jsonLdWebsite = {
 
         <!-- Copyright -->
         <div class="border-t border-gray-600 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; <span id="footer-year"></span> {t('footer.copyright')}</p>
+          <p>&copy; <span id="footer-year"></span> {t('footer.copyright')} · <a href="/privacy/" class="hover:text-white transition-colors underline underline-offset-4 decoration-gray-600">{t('footer.privacy')}</a></p>
           <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
         </div>
       </div>
@@ -323,6 +346,20 @@ const jsonLdWebsite = {
           mobileMenu?.classList.add('hidden');
         });
       });
+    </script>
+
+    <!-- Ads conversions: delegated listener, capture phase so it fires before navigation -->
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a || typeof gtag !== 'function') return;
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf('tel:') === 0) {
+          gtag('event', 'conversion', { send_to: 'AW-18418801309/1CH_CIrGioYdEJ214s5E' });
+        } else if (href.indexOf('instagram.com/podolog_datsyshyna') !== -1) {
+          gtag('event', 'conversion', { send_to: 'AW-18418801309/5TV5CI3bioYdEJ214s5E' });
+        }
+      }, true);
     </script>
   </body>
 </html>

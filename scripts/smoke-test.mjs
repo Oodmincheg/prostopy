@@ -52,6 +52,18 @@ for (const [path, fromPrice] of landingChecks) {
   check(!html.includes('hreflang="en-US"'), `${path} must not emit EN hreflang`);
 }
 
+// 2c. Ads conversion tracking and privacy page
+check(fileExists('/privacy/index.html'), 'Missing privacy page');
+const trackingPages = ['/index.html', '/en/index.html', '/services/vroslyi-nihot/index.html'];
+for (const p of trackingPages) {
+  if (!fileExists(p)) continue;
+  const html = readFile(p);
+  check(html.includes('googletagmanager.com/gtag/js?id=AW-18418801309'), `${p} missing gtag loader`);
+  check(html.includes('ads_data_redaction'), `${p} missing consent mode block`);
+  check(html.includes('AW-18418801309/1CH_CIrGioYdEJ214s5E'), `${p} missing phone_click conversion`);
+  check(html.includes('AW-18418801309/5TV5CI3bioYdEJ214s5E'), `${p} missing instagram_click conversion`);
+}
+
 // 3. Homepage content checks
 const ukHome = fileExists('/index.html') ? readFile('/index.html') : '';
 const enHome = fileExists('/en/index.html') ? readFile('/en/index.html') : '';
@@ -83,5 +95,5 @@ if (errors.length > 0) {
   console.error('');
   process.exit(1);
 } else {
-  console.log(`\n✅ Smoke test passed (${requiredPages.length + services.length * 2 + landingPages.length * 2 + landingChecks.length * 3 + 8} checks)\n`);
+  console.log(`\n✅ Smoke test passed (${requiredPages.length + services.length * 2 + landingPages.length * 2 + landingChecks.length * 3 + 1 + trackingPages.length * 4 + 8} checks)\n`);
 }
