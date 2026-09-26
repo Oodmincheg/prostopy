@@ -128,6 +128,7 @@ export const ui = {
     'footer.service.6': 'Індивідуальні устілки',
     'footer.contacts': 'Контакти',
     'footer.copyright': 'PRO STOPY. Всі права захищені.',
+    'footer.privacy': 'Політика приватності',
 
     // Service placeholder pages
     'servicePage.comingSoon': 'Детальна інформація незабаром',
@@ -299,6 +300,7 @@ export const ui = {
     'footer.service.6': 'Custom insoles',
     'footer.contacts': 'Contacts',
     'footer.copyright': 'PRO STOPY. All rights reserved.',
+    'footer.privacy': 'Privacy policy',
 
     // Service placeholder pages
     'servicePage.comingSoon': 'Detailed information coming soon',
