@@ -39,6 +39,11 @@ export const ui = {
     'hero.stat.rating': 'рейтинг у Google',
 
     // Services
+    'team.title': 'Наша команда',
+    'team.subtitle': 'Хто дбає про ваші стопи',
+    'team.master.name': 'Анна Дацишина',
+    'team.master.role': 'Подолог, засновниця PRO STOPY',
+    'team.master.bio': 'Делікатно вирішує проблеми стоп: врослі нігті, тріщини, стрижневі мозолі, бородавки. Працює за сертифікованими методиками, постійно підвищує кваліфікацію та підбирає догляд індивідуально під кожного клієнта.',
     'services.title': 'Наші послуги',
     'services.subtitle': 'Професійний підхід до кожної процедури. Підбираємо оптимальне рішення, виходячи зі стану ваших стоп.',
     'services.hygienicPedicure.title': 'Гігієнічний педикюр',
@@ -208,6 +213,11 @@ export const ui = {
     'hero.stat.rating': 'Google rating',
 
     // Services
+    'team.title': 'Our team',
+    'team.subtitle': 'Who takes care of your feet',
+    'team.master.name': 'Anna Datsyshyna',
+    'team.master.role': 'Podologist, founder of PRO STOPY',
+    'team.master.bio': 'Gently resolves foot problems: ingrown nails, cracks, core calluses, warts. Works with certified techniques, continuously improves her qualifications and tailors care to every client.',
     'services.title': 'Our services',
     'services.subtitle': 'Professional approach to every procedure. We select the optimal solution based on the condition of your feet.',
     'services.hygienicPedicure.title': 'Hygienic pedicure',
