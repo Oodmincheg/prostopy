@@ -1,7 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import SectionTitle from '../components/SectionTitle.astro';
+import annaPhoto from '../assets/team/podoloh-cabinet.jpg';
+import yuliiaPhoto from '../assets/team/yuliia.jpg';
+import viktoriiaPhoto from '../assets/team/viktoriia.jpg';
 import '../styles/global.css';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
 import { ui } from '../i18n/ui';
@@ -86,7 +90,7 @@ const reviewColors = ['bg-accent', 'bg-base-2/40', 'bg-base-3/40', 'bg-base-5/40
                 <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"/>
               </svg>
             </div>
-            <div class="text-2xl font-prosto text-dark mb-1">5.0</div>
+            <div class="text-2xl font-prosto text-dark mb-1">4.8</div>
             <div class="text-gray text-sm">{t('hero.stat.rating')}</div>
           </div>
         </div>
@@ -313,13 +317,55 @@ const reviewColors = ['bg-accent', 'bg-base-2/40', 'bg-base-3/40', 'bg-base-5/40
                   <div class="text-gray text-sm">{t('about.statClients')}</div>
                 </div>
                 <div class="bg-white/80 rounded-xl p-4 backdrop-blur-sm">
-                  <div class="text-2xl font-prosto text-dark">5.0</div>
+                  <div class="text-2xl font-prosto text-dark">4.8</div>
                   <div class="text-gray text-sm">{t('about.statRating')}</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section id="team" class="section-padding bg-base-6/10">
+    <div class="container-custom">
+      <SectionTitle
+        title={t('team.title')}
+        subtitle={t('team.subtitle')}
+        class="mb-16"
+      />
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <Image src={annaPhoto} alt={t('team.master.name')} class="w-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 90vw, 350px" />
+          <div class="p-6">
+            <h3 class="text-xl font-prosto text-dark mb-1">{t('team.master.name')}</h3>
+            <p class="text-gray text-sm font-medium mb-3">{t('team.master.role')}</p>
+            <p class="text-gray text-sm leading-relaxed">{t('team.master.bio')}</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <Image src={yuliiaPhoto} alt={t('team.podolog.name')} class="w-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 90vw, 350px" />
+          <div class="p-6">
+            <h3 class="text-xl font-prosto text-dark mb-1">{t('team.podolog.name')}</h3>
+            <p class="text-gray text-sm font-medium mb-3">{t('team.podolog.role')}</p>
+            <p class="text-gray text-sm leading-relaxed">{t('team.podolog.bio')}</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+          <Image src={viktoriiaPhoto} alt={t('team.manager.name')} class="w-full object-cover aspect-[3/4]" widths={[400, 800]} sizes="(max-width: 768px) 90vw, 350px" />
+          <div class="p-6">
+            <h3 class="text-xl font-prosto text-dark mb-1">{t('team.manager.name')}</h3>
+            <p class="text-gray text-sm font-medium mb-3">{t('team.manager.role')}</p>
+            <p class="text-gray text-sm leading-relaxed">{t('team.manager.bio')}</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-3 justify-center mt-10">
+        <span class="bg-white rounded-full px-4 py-1.5 text-sm text-dark shadow-sm">1000+ {t('about.statClients')}</span>
+        <span class="bg-white rounded-full px-4 py-1.5 text-sm text-dark shadow-sm">4.8 {t('about.statRating')}</span>
       </div>
     </div>
   </section>
